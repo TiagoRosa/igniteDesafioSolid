@@ -1,0 +1,250 @@
+{
+    "openapi":"3.0.0",
+    "info":{
+        "title":"Users - Solid",
+        "description":"Essa aplicação tem como objetivo o estudo do SOLID e também do Swagger",
+        "version":"1.0.0",
+        "contact": {
+            "email": "tiago@teste.com.br"
+        }
+    },
+    "paths":{
+        "/users":{
+            "post":{
+                "tags":["User"],
+                "summary":"Criação de usuario",
+                "description":"Criar um novo usuario",
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "name":{
+                                        "type":"string"
+                                    },
+                                    "email":{
+                                        "type": "string"
+                                    }
+                                },
+                                "example":{
+                                    "name":"John Doe",
+                                    "email":"john.doe@example.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description":"Sucess",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        },
+                                        "description":{
+                                            "type":"string"
+                                        },
+                                        "email":{
+                                            "type":"string"
+                                        },
+                                        "admin":{
+                                            "type":"boolean"
+                                        },
+                                        "id":{
+                                            "type":"string"
+                                        },
+                                        "created_at":{
+                                            "type":"string",
+                                            "format":"date-time"
+                                        },
+                                        "updated_at":{
+                                            "type":"string",
+                                            "format":"date-time"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"Usuario Ja existe"
+                    }
+                }
+            },
+            "get":{
+                "tags":["User"],
+                "summary":"Listagema de usuarios",
+                "description":"Listagem de todos os usuarios, porém somente os administradores podem listar. Enviar o user_id no header",
+                "parameters": [{
+                    "name":"user_id",
+                    "in": "header",
+                    "schema":{
+                        "type":"string"
+                    }
+                }],
+                "responses":{
+                    "201":{
+                        "description":"Sucess",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"array",
+                                    "items":{
+                                        "type":"object",
+                                        "properties":{
+                                            "name":{
+                                                "type":"string"
+                                            },
+                                            "description":{
+                                                "type":"string"
+                                            },
+                                            "email":{
+                                                "type":"string"
+                                            },
+                                            "admin":{
+                                                "type":"boolean"
+                                            },
+                                            "id":{
+                                                "type":"string"
+                                            },
+                                            "created_at":{
+                                                "type":"string",
+                                                "format":"date-time"
+                                            },
+                                            "updated_at":{
+                                                "type":"string",
+                                                "format":"date-time"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403":{
+                        "description":"Usuario sem permissão"
+                    }
+                }
+            }            
+        },
+        "/users/{user_id}/admin":{
+            "patch":{
+                "tags":["User"],
+                "summary":"Converte usuario para ser administrador",
+                "description":"Concede permissão de administrador para o usuario informado",
+                "parameters": [{
+                    "name":"user_id",
+                    "in": "path",
+                    "schema":{
+                        "type":"string"
+                    }
+                }],
+                "responses":{
+                    "201":{
+                        "description":"Sucess",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"array",
+                                    "items":{
+                                        "type":"object",
+                                        "properties":{
+                                            "name":{
+                                                "type":"string"
+                                            },
+                                            "description":{
+                                                "type":"string"
+                                            },
+                                            "email":{
+                                                "type":"string"
+                                            },
+                                            "admin":{
+                                                "type":"boolean"
+                                            },
+                                            "id":{
+                                                "type":"string"
+                                            },
+                                            "created_at":{
+                                                "type":"string",
+                                                "format":"date-time"
+                                            },
+                                            "updated_at":{
+                                                "type":"string",
+                                                "format":"date-time"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403":{
+                        "description":"Usuario sem permissão"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}":{
+            "get":{
+                "tags":["User"],
+                "summary":"Busca detalhes de um usuario especifico",
+                "description":"Busca informações detalhadas de um unico usuario conforme o id encaminhado nos parametros",
+                "parameters": [{
+                    "name":"user_id",
+                    "in": "path",
+                    "schema":{
+                        "type":"string"
+                    }
+                }],
+                "responses":{
+                    "201":{
+                        "description":"Sucess",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"array",
+                                    "items":{
+                                        "type":"object",
+                                        "properties":{
+                                            "name":{
+                                                "type":"string"
+                                            },
+                                            "description":{
+                                                "type":"string"
+                                            },
+                                            "email":{
+                                                "type":"string"
+                                            },
+                                            "admin":{
+                                                "type":"boolean"
+                                            },
+                                            "id":{
+                                                "type":"string"
+                                            },
+                                            "created_at":{
+                                                "type":"string",
+                                                "format":"date-time"
+                                            },
+                                            "updated_at":{
+                                                "type":"string",
+                                                "format":"date-time"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404":{
+                        "description":"Usuario não encontrado"
+                    }
+                }
+            }
+        }
+    }
+}
